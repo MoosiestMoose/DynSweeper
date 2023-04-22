@@ -3273,7 +3273,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "FR_comments = IN[0][0]\r\nFR_Marks = IN[0][1]\r\nnums = IN[1]\r\nsquares = int(IN[2]) * int(IN[2])\r\nboom = IN[3]\r\n\r\n# How many bombs are there?\r\nbomb = nums.count(\"-1\")\r\n\r\n# Find the flag indexes\r\nflags = []\r\nfor idx, u in enumerate(FR_comments):\r\n    if u == \"f\":\r\n        flags.append(idx)\r\n\r\nmarks = 0\r\nfor x in FR_Marks:\r\n    if x == \"X\":\r\n        marks += 1\r\n\r\nif boom[0] == \"BOOM\":\r\n    OUT = \"BOOM\", flags\r\nelif boom[0] == \"MARK\":\r\n    if len(flags) == bomb - 1:\r\n        if marks < bomb:\r\n            if boom[2] == \"f\":\r\n                OUT = \"win\"\r\nelif len(flags) == bomb:\r\n\tOUT = \"win\"    \r\nelse:\r\n    # How many squares have been uncovered?\r\n    uncover = 0\r\n    for u in FR_comments:\r\n        if u == \"u\":\r\n            uncover += 1\r\n\r\n    # Count squares in boom:\r\n    new = len(boom[0]) + len(boom[1])\r\n\r\n    # Is the game won?\r\n    if (squares - bomb) == (uncover + new):\r\n        OUT = \"win\"\r\n    else:\r\n        OUT = \"not win\", len(flags)\r\n",
+      "Code": "FR_comments = IN[0][0]\r\nFR_Marks = IN[0][1]\r\nnums = IN[1]\r\nsquares = int(IN[2]) * int(IN[2])\r\nboom = IN[3]\r\n\r\n# How many bombs are there?\r\nbomb = nums.count(\"-1\")\r\n\r\n# Find the flag indexes\r\nflags = []\r\nfor idx, u in enumerate(FR_comments):\r\n    if u == \"f\":\r\n        flags.append(idx)\r\n\r\nmarks = 0\r\nfor x in FR_Marks:\r\n    if x == \"X\":\r\n        marks += 1\r\n\r\nif boom[0] == \"BOOM\":\r\n    OUT = \"BOOM\", flags\r\nelif boom[0] == \"MARK\":\r\n    if len(flags) == bomb - 1:\r\n        if marks == len(flags):\r\n            if boom[2] == \"f\":\r\n                OUT = \"win\"\r\nelif len(flags) == bomb:\r\n\tOUT = \"win\"    \r\nelse:\r\n    # How many squares have been uncovered?\r\n    uncover = 0\r\n    for u in FR_comments:\r\n        if u == \"u\":\r\n            uncover += 1\r\n\r\n    # Count squares in boom:\r\n    new = len(boom[0]) + len(boom[1])\r\n\r\n    # Is the game won?\r\n    if (squares - bomb) == (uncover + new):\r\n        OUT = \"win\"\r\n    else:\r\n        OUT = \"not win\", len(flags)\r\n",
       "VariableInputPorts": true,
       "Id": "e93db60120f04ef1b8596d347d2f1937",
       "Inputs": [
@@ -3695,7 +3695,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "\r\nif IN[0] == \"RESET\":\r\n\tOUT = \"Project Name\", \"Project Number\", \"Project Status\"\r\n",
+      "Code": "\r\nif IN[0] == \"RESET\":\r\n\tOUT = \"Project Name\", \"Project Number\", \"Project Status\"\r\nif IN[1] == \"RESET\":\r\n\tOUT = \"Project Name\", \"Project Number\", \"Project Status\"",
       "VariableInputPorts": true,
       "Id": "2ed64ed4b29b463ca4079e9e6bcd55e3",
       "Inputs": [
@@ -3703,6 +3703,15 @@
           "Id": "46a5f9e8c5dd46a7b3be20eaf3f4b6cf",
           "Name": "IN[0]",
           "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "76ca1fbac1ea4ee5a0f3ac7b85ea2610",
+          "Name": "IN[1]",
+          "Description": "Input #1",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5275,6 +5284,11 @@
       "Id": "1891ee419655435892a5bcf4e0145a56"
     },
     {
+      "Start": "06251c785f7b4084a3429344d1d3dac9",
+      "End": "46a5f9e8c5dd46a7b3be20eaf3f4b6cf",
+      "Id": "6197fea708dd42099bc8ce98ba14c529"
+    },
+    {
       "Start": "8cae6471e4a94687b54859dc2a59ccad",
       "End": "c6bd6bcf5ab742779c1ad9f40b4548b9",
       "Id": "603aa1501b564347a343f783f82d7424"
@@ -5331,8 +5345,8 @@
     },
     {
       "Start": "3ad06a0492dd42d4bf0ef81aae664949",
-      "End": "46a5f9e8c5dd46a7b3be20eaf3f4b6cf",
-      "Id": "faa94b28a72540d69b99a4e6780f755a"
+      "End": "76ca1fbac1ea4ee5a0f3ac7b85ea2610",
+      "Id": "3706216c12314323972120dd4920f0a2"
     },
     {
       "Start": "633f21a3f4764723955b21ae83890fe7",
@@ -5501,7 +5515,14 @@
       ]
     }
   ],
-  "Bindings": [],
+  "Bindings": [
+    {
+      "NodeId": "391ffbf4-294e-4a0c-938f-39a435491a1f",
+      "Binding": {
+        "ByLocation_InClassDecl-1_InFunctionScope-1_Instance0_391ffbf4-294e-4a0c-938f-39a435491a1f": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNi4xLjg3ODYlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPmZhbHNlPC9CYXNlLTBfSGFzRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT50cnVlPC9CYXNlLTBfSGFzTmVzdGVkRGF0YT4NCjxCYXNlLTBfTmVzdGVkRGF0YUNvdW50PjE8L0Jhc2UtMF9OZXN0ZWREYXRhQ291bnQ+DQo8QmFzZS0wLTBfSGFzRGF0YT50cnVlPC9CYXNlLTAtMF9IYXNEYXRhPg0KPEJhc2UtMC0wX0RhdGEgaWQ9InJlZi0zIj5QRk5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxJSGh0Ykc1ek9uaHphVDBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01TOVlUVXhUWTJobGJXRXRhVzV6ZEdGdVkyVWlJSGh0Ykc1ek9uaHpaRDBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01TOVlUVXhUWTJobGJXRWlJSGh0Ykc1ek9sTlBRVkF0UlU1RFBTSm9kSFJ3T2k4dmMyTm9aVzFoY3k1NGJXeHpiMkZ3TG05eVp5OXpiMkZ3TDJWdVkyOWthVzVuTHlJZ2VHMXNibk02VTA5QlVDMUZUbFk5SW1oMGRIQTZMeTl6WTJobGJXRnpMbmh0YkhOdllYQXViM0puTDNOdllYQXZaVzUyWld4dmNHVXZJaUI0Yld4dWN6cGpiSEk5SW1oMGRIQTZMeTl6WTJobGJXRnpMbTFwWTNKdmMyOW1kQzVqYjIwdmMyOWhjQzlsYm1OdlpHbHVaeTlqYkhJdk1TNHdJaUJUVDBGUUxVVk9WanBsYm1OdlpHbHVaMU4wZVd4bFBTSm9kSFJ3T2k4dmMyTm9aVzFoY3k1NGJXeHpiMkZ3TG05eVp5OXpiMkZ3TDJWdVkyOWthVzVuTHlJK0RRbzhVMDlCVUMxRlRsWTZRbTlrZVQ0TkNqeGhNVHBUWlhKcFlXeHBlbUZpYkdWSlpDQnBaRDBpY21WbUxURWlJSGh0Ykc1ek9tRXhQU0pvZEhSd09pOHZjMk5vWlcxaGN5NXRhV055YjNOdlpuUXVZMjl0TDJOc2NpOXVjMkZ6YzJWdEwxSmxkbWwwVTJWeWRtbGpaWE11VUdWeWMybHpkR1Z1WTJVdlVtVjJhWFJUWlhKMmFXTmxjeVV5UXlVeU1GWmxjbk5wYjI0bE0wUXlMall1TVM0NE9EVXdKVEpESlRJd1EzVnNkSFZ5WlNVelJHNWxkWFJ5WVd3bE1rTWxNakJRZFdKc2FXTkxaWGxVYjJ0bGJpVXpSRzUxYkd3aVBnMEtQSE4wY21sdVowbEVJR2xrUFNKeVpXWXRNeUkrTjJFek16RmpZamN0TURFd1lTMDBaVE01TFdGbU1qZ3RZV1ZqTlRGbFl6RTVPRGd3TFRBd01EWTVZMkk0UEM5emRISnBibWRKUkQ0TkNqeHBiblJKUkQ0ME16TXpNelk4TDJsdWRFbEVQZzBLUEM5aE1UcFRaWEpwWVd4cGVtRmliR1ZKWkQ0TkNqd3ZVMDlCVUMxRlRsWTZRbTlrZVQ0TkNqd3ZVMDlCVUMxRlRsWTZSVzUyWld4dmNHVStEUW89PC9CYXNlLTAtMF9EYXRhPg0KPEJhc2UtMC0wX0hhc05lc3RlZERhdGE+ZmFsc2U8L0Jhc2UtMC0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    }
+  ],
   "View": {
     "Dynamo": {
       "ScaleFactor": 1.0,
@@ -6511,8 +6532,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 4879.4134035545458,
-        "Y": 1835.3211447047252
+        "X": 4736.4840484500182,
+        "Y": 1826.5703678615907
       },
       {
         "ShowGeometry": true,
@@ -6571,8 +6592,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 5302.6716720714012,
-        "Y": 2073.809347989707
+        "X": 5041.6472928732937,
+        "Y": 1758.8644397553712
       },
       {
         "ShowGeometry": true,
@@ -6581,8 +6602,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 4416.9888819007474,
-        "Y": 2057.2674015657931
+        "X": 4163.21635344985,
+        "Y": 2051.4335503370366
       },
       {
         "ShowGeometry": true,
@@ -6591,8 +6612,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 4127.4749068481724,
-        "Y": 2058.5807477458584
+        "X": 3873.7023783972754,
+        "Y": 2052.746896517102
       },
       {
         "ShowGeometry": true,
@@ -6601,8 +6622,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 4635.3610183308992,
-        "Y": 2116.08360592351
+        "X": 4381.5884898800023,
+        "Y": 2110.2497546947534
       },
       {
         "ShowGeometry": true,
@@ -6611,7 +6632,7 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 4640.6952349909634,
+        "X": 4641.7836514080082,
         "Y": 2500.8234155010837
       },
       {
@@ -7002,13 +7023,13 @@
           "bd78051efcb8407bbc4d6941016115d7",
           "2a8eced95f7847dd9b269a6f2ec12805"
         ],
-        "Left": 4869.4134035545458,
+        "Left": 4726.4840484500182,
         "Top": 1609.4926615218933,
-        "Width": 1078.9549019295309,
-        "Height": 557.31668646781372,
+        "Width": 1221.8842570340585,
+        "Height": 518.75374931049419,
         "FontSize": 36.0,
         "InitialTop": 1705.4926615218933,
-        "InitialHeight": 513.31668646781372,
+        "InitialHeight": 417.75374931049419,
         "TextblockHeight": 86.0,
         "Background": "#FFFFAA45"
       },
@@ -7351,12 +7372,12 @@
           "d6be68cf1e5f4f8d849df0be1ea0dd8e",
           "c7177158b9a94534a40a1472e556df40"
         ],
-        "Left": 4117.4749068481724,
-        "Top": 2004.2674015657931,
+        "Left": 3863.7023783972754,
+        "Top": 1998.4335503370366,
         "Width": 730.88611148272685,
         "Height": 204.81620435771674,
         "FontSize": 36.0,
-        "InitialTop": 2057.2674015657931,
+        "InitialTop": 2051.4335503370366,
         "InitialHeight": 203.81620435771674,
         "TextblockHeight": 43.0,
         "Background": "#FFFF7BAC"
@@ -7879,8 +7900,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 1031.4406937988365,
-    "Y": 627.41026056559656,
-    "Zoom": 0.23092622165416005
+    "X": 876.99125922341636,
+    "Y": 464.87094994566735,
+    "Zoom": 0.19421863202978681
   }
 }
